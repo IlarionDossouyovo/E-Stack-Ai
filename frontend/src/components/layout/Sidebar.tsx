@@ -1,12 +1,14 @@
 'use client';
 
+import Link from 'next/link';
 import { 
   LayoutDashboard, 
   Package, 
   Users, 
   Bot, 
   Settings,
-  X
+  X,
+  Crown
 } from 'lucide-react';
 
 type Module = 'dashboard' | 'erp' | 'crm' | 'ai' | 'settings';
@@ -89,6 +91,15 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
               </button>
             );
           })}
+          
+          {/* Agents Page Link - Founder Only */}
+          <Link
+            href="/agents"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
+          >
+            <Crown className="w-5 h-5" />
+            <span className="font-medium">Agents IA</span>
+          </Link>
         </nav>
 
         <div className="absolute bottom-0 left-0 right-0 p-4">

@@ -197,6 +197,28 @@ FRONTEND_URL=http://localhost:3000
 
 ---
 
+## 🤖 Agents IA (40+)
+
+La plateforme inclut **40+ agents IA** organisés par département :
+- **Direction Générale** : PDG, DG, Assistant Exécutif
+- **Finance** : Comptable, Controller, Fiscaliste, Analyste, Trésorier
+- **Commerce** : Commercial, Négociateur, Devis, Commandes
+- **Marketing** : 9 agents (Content, SEO, Ads, Email, Growth...)
+- **Service Client** : Chatbot, SAV, Réclamations, Fidélisation
+- **RH** : Recruteur, Formateur, Évaluateur
+- **Production** : Maintenance, Qualité
+- **Juridique** : Juriste, Contrats, Conformité
+- **Achats** : Acheteur, Négociateur
+- **Supply Chain** : Entrepôt, Stocks, Transport
+- **Data Science** : Analyste, Data Scientist, Engineer
+- **Cybersécurité** : SOC, Détection, Vulnérabilités
+
+### Page des Agents (Fondateur uniquement)
+
+La page `/agents` est accessible uniquement au fondateur de l'entreprise avec vérification de rôle.
+
+---
+
 ## 🐳 Commandes Docker
 
 ```bash
