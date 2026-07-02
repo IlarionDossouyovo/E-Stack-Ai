@@ -1,0 +1,21 @@
+{
+  "name": "e-stack-ai",
+  "version": "1.0.0",
+  "description": "E-Stack AI - Electron AI Business OS - Plateforme Internationale d'Intelligence Artificielle pour la Gestion Intégrale des Entreprises",
+  "private": true,
+  "scripts": {
+    "dev": "docker-compose up",
+    "build": "docker-compose build",
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
+    "logs": "docker-compose logs -f",
+    "setup": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": ["ai", "business", "erp", "crm", "orchestrator", "enterprise", "multi-agent"],
+  "author": "E-Stack AI - Technologies ELECTRON",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "docker": ">=20.0.0"
+  }
+}
