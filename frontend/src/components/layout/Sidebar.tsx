@@ -10,6 +10,7 @@ import {
   X,
   Crown
 } from 'lucide-react';
+import Logo from '../common/Logo';
 
 type Module = 'dashboard' | 'erp' | 'crm' | 'ai' | 'settings';
 
@@ -49,15 +50,9 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
         `}
       >
         <div className="flex items-center justify-between p-4 border-b border-indigo-700">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-              <Bot className="w-6 h-6 text-indigo-600" />
-            </div>
-            <div>
-              <h1 className="text-white font-bold text-lg">E-Stack AI</h1>
-              <p className="text-indigo-300 text-xs">Business OS</p>
-            </div>
-          </div>
+          <Link href="/" className="flex items-center gap-3">
+            <Logo size="md" variant="white" />
+          </Link>
           <button 
             onClick={() => setIsOpen(false)}
             className="lg:hidden text-white/70 hover:text-white"

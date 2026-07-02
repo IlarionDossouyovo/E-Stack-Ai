@@ -1,7 +1,9 @@
 'use client';
 
-import { Menu, Bell, Search, User } from 'lucide-react';
+import { Menu, Bell, Search, User, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import Logo from '../common/Logo';
+import Link from 'next/link';
 
 interface HeaderProps {
   title: string;
@@ -10,6 +12,7 @@ interface HeaderProps {
 
 export default function Header({ title, onMenuClick }: HeaderProps) {
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">
@@ -21,6 +24,10 @@ export default function Header({ title, onMenuClick }: HeaderProps) {
           >
             <Menu className="w-5 h-5 text-gray-600" />
           </button>
+          <Link href="/" className="hidden md:block">
+            <Logo size="sm" />
+          </Link>
+          <div className="hidden md:block w-px h-8 bg-gray-200 mx-2"></div>
           <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
         </div>
 

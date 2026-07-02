@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Sparkles, Search, Lock, ChevronDown, ChevronRight, Bot, Shield, Users, DollarSign, Package, Building, Truck, Database, Eye } from 'lucide-react';
+import { Sparkles, Search, Lock, ChevronDown, ChevronRight, Bot, Shield, Users, DollarSign, Package, Building, Truck, Database, Eye, ArrowLeft } from 'lucide-react';
+import Logo from '@/components/common/Logo';
 
 const allAgentsData = [
   {
@@ -219,30 +220,29 @@ export default function AgentsPage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                <Bot className="w-7 h-7 text-white" />
-              </div>
+              <Logo size="lg" variant="white" />
               <div>
-                <h1 className="text-2xl font-bold text-white">E-Stack AI Agents</h1>
-                <p className="text-white/60 text-sm">Centre de contrôle des agents IA - Accès Fondateur</p>
+                <h1 className="text-2xl font-bold text-white">Centre des Agents IA</h1>
+                <p className="text-white/60 text-sm">Panneau de contrôle - Accès Fondateur</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <div className="relative">
+              <div className="relative hidden md:block">
                 <Search className="w-5 h-5 text-white/50 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Rechercher un agent..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 w-64"
                 />
               </div>
               <button
                 onClick={() => router.push('/')}
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition"
+                className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition"
               >
-                Dashboard
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden md:inline">Dashboard</span>
               </button>
             </div>
           </div>
