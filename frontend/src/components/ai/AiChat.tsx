@@ -11,23 +11,93 @@ interface Message {
   agent?: string;
 }
 
-const agents = [
-  { id: 'general', name: 'Assistant IA', icon: Bot },
-  { id: 'pdg', name: ' PDG IA', icon: Sparkles },
-  { id: 'accountant', name: 'Comptable IA', icon: Sparkles },
-  { id: 'salesperson', name: 'Commercial IA', icon: Sparkles },
-  { id: 'marketer', name: 'Marketing IA', icon: Sparkles },
-  { id: 'hr', name: 'RH IA', icon: Sparkles },
-  { id: 'analyst', name: 'Analyste IA', icon: Sparkles },
-];
+const agentsByCategory = {
+  'Direction Générale': [
+    { id: 'pdg', name: 'PDG IA', icon: Sparkles },
+    { id: 'dg', name: 'Directeur Général', icon: Sparkles },
+    { id: 'assistant_exec', name: 'Assistant Exécutif', icon: Sparkles },
+  ],
+  'Finance': [
+    { id: 'accountant', name: 'Comptable', icon: Sparkles },
+    { id: 'controller', name: 'Contrôleur Gestion', icon: Sparkles },
+    { id: 'fiscalist', name: 'Fiscaliste', icon: Sparkles },
+    { id: 'financial_analyst', name: 'Analyste Financier', icon: Sparkles },
+    { id: 'treasurer', name: 'Trésorerie', icon: Sparkles },
+  ],
+  'Commerce': [
+    { id: 'salesperson', name: 'Commercial', icon: Sparkles },
+    { id: 'negotiator', name: 'Négociateur', icon: Sparkles },
+    { id: 'quotes_manager', name: 'Devis', icon: Sparkles },
+    { id: 'orders_manager', name: 'Commandes', icon: Sparkles },
+  ],
+  'Marketing': [
+    { id: 'marketer', name: 'Marketing', icon: Sparkles },
+    { id: 'community_manager', name: 'Community Manager', icon: Sparkles },
+    { id: 'content_creator', name: 'Créateur Contenu', icon: Sparkles },
+    { id: 'advertiser', name: 'Publicitaire', icon: Sparkles },
+    { id: 'seo', name: 'SEO', icon: Sparkles },
+    { id: 'mer', name: 'MER', icon: Sparkles },
+    { id: 'copywriter', name: 'Rédacteur', icon: Sparkles },
+    { id: 'email_marketer', name: 'Email Marketing', icon: Sparkles },
+    { id: 'growth_hacker', name: 'Growth Hacker', icon: Sparkles },
+  ],
+  'Service Client': [
+    { id: 'chatbot', name: 'Chatbot', icon: Sparkles },
+    { id: 'sav', name: 'SAV', icon: Sparkles },
+    { id: 'claims_manager', name: 'Réclamations', icon: Sparkles },
+    { id: 'loyalty', name: 'Fidélisation', icon: Sparkles },
+  ],
+  'Ressources Humaines': [
+    { id: 'hr', name: 'RH', icon: Sparkles },
+    { id: 'recruiter', name: 'Recruteur', icon: Sparkles },
+    { id: 'trainer', name: 'Formateur', icon: Sparkles },
+    { id: 'evaluator', name: 'Évaluateur', icon: Sparkles },
+  ],
+  'Production': [
+    { id: 'production_manager', name: 'Responsable Production', icon: Sparkles },
+    { id: 'maintenance', name: 'Maintenance', icon: Sparkles },
+    { id: 'quality', name: 'Qualité', icon: Sparkles },
+  ],
+  'Juridique': [
+    { id: 'jurist', name: 'Juriste', icon: Sparkles },
+    { id: 'contracts', name: 'Contrats', icon: Sparkles },
+    { id: 'compliance', name: 'Conformité', icon: Sparkles },
+  ],
+  'Achats': [
+    { id: 'buyer', name: 'Acheteur', icon: Sparkles },
+    { id: 'supplier_negotiator', name: 'Négociateur Fournisseurs', icon: Sparkles },
+  ],
+  'Supply Chain': [
+    { id: 'warehouse_manager', name: 'Entrepôt', icon: Sparkles },
+    { id: 'stock_manager', name: 'Stocks', icon: Sparkles },
+    { id: 'transport_manager', name: 'Transport', icon: Sparkles },
+  ],
+  'Data Science': [
+    { id: 'analyst', name: 'Analyste Data', icon: Sparkles },
+    { id: 'data_scientist', name: 'Data Scientist', icon: Sparkles },
+    { id: 'data_engineer', name: 'Data Engineer', icon: Sparkles },
+  ],
+  'Cybersécurité': [
+    { id: 'soc', name: 'SOC', icon: Sparkles },
+    { id: 'intrusion_detection', name: 'Détection Intrusion', icon: Sparkles },
+    { id: 'vulnerability_analyst', name: 'Vulnérabilités', icon: Sparkles },
+  ],
+  'Général': [
+    { id: 'general', name: 'Assistant IA', icon: Bot },
+  ],
+};
 
 export default function AiChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState('general');
+  const [selectedAgent, setSelectedAgent] = useState('pdg');
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(Object.keys(agentsByCategory));
   const [aiStatus, setAiStatus] = useState<{ connected: boolean; models: string[] } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Flatten all agents for reference
+  const allAgents = Object.values(agentsByCategory).flat();
 
   useEffect(() => {
     fetchAiStatus();
@@ -61,7 +131,7 @@ export default function AiChat() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/ai/agent/general', {
+      const response = await axios.post(`http://localhost:4000/api/v1/ai/agent/${selectedAgent}`, {
         message: input,
         context: {},
       });
@@ -93,24 +163,41 @@ export default function AiChat() {
       {/* Agents Sidebar */}
       <div className="w-64 bg-white rounded-xl border border-gray-200 p-4 flex-shrink-0">
         <h3 className="font-semibold text-gray-900 mb-4">Agents IA</h3>
-        <div className="space-y-2">
-          {agents.map((agent) => {
-            const Icon = agent.icon;
-            return (
+        <div className="space-y-3 overflow-y-auto max-h-[calc(100vh-350px)]">
+          {Object.entries(agentsByCategory).map(([category, agents]) => (
+            <div key={category}>
               <button
-                key={agent.id}
-                onClick={() => setSelectedAgent(agent.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-                  selectedAgent === agent.id
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
+                onClick={() => setExpandedCategories(prev => 
+                  prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+                )}
+                className="w-full flex items-center justify-between px-2 py-1 text-xs font-semibold text-gray-500 uppercase hover:text-gray-700"
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-sm">{agent.name}</span>
+                {category}
+                <span>{expandedCategories.includes(category) ? '−' : '+'}</span>
               </button>
-            );
-          })}
+              {expandedCategories.includes(category) && (
+                <div className="mt-1 space-y-1">
+                  {agents.map((agent) => {
+                    const Icon = agent.icon;
+                    return (
+                      <button
+                        key={agent.id}
+                        onClick={() => setSelectedAgent(agent.id)}
+                        className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm ${
+                          selectedAgent === agent.id
+                            ? 'bg-indigo-100 text-indigo-700'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span>{agent.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         {/* AI Status */}
@@ -136,7 +223,7 @@ export default function AiChat() {
       <div className="flex-1 bg-white rounded-xl border border-gray-200 flex flex-col">
         {/* Chat Header */}
         <div className="p-4 border-b border-gray-200">
-          <h3 className="font-semibold text-gray-900">Chat avec {agents.find(a => a.id === selectedAgent)?.name}</h3>
+          <h3 className="font-semibold text-gray-900">Chat avec {allAgents.find(a => a.id === selectedAgent)?.name}</h3>
           <p className="text-sm text-gray-500">Assistant IA-powered pour votre entreprise</p>
         </div>
 
