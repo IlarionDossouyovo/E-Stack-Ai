@@ -75,7 +75,7 @@ e-stack-ai/
 ### Étape 1: Cloner le projet
 
 ```bash
-git clone https://github.com/IlarionDossouyovo/E-Stack-Ai.git
+git clone https://github.com/IlarionDossouyovo/ELECTRON-Stack-AI.git
 cd E-Stack-Ai
 ```
 
