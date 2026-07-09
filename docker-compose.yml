@@ -1,38 +1,6 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    container_name: estack-postgres
-    environment:
-      POSTGRES_DB: estack_ai
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Redis Cache
-  redis:
-    image: redis:7-alpine
-    container_name: estack-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # Backend API
   backend:
     build:
@@ -42,7 +10,7 @@ services:
     environment:
       NODE_ENV: development
       PORT: 4000
-      DATABASE_HOST: postgres
+      DATABASE_HOST: host.docker.internal
       DATABASE_PORT: 5432
       DATABASE_NAME: estack_ai
       DATABASE_USER: postgres
@@ -53,14 +21,9 @@ services:
       OLLAMA_BASE_URL: http://host.docker.internal:11434
       OLLAMA_DEFAULT_MODEL: mistral:latest
       OLLAMA_MODELS: mistral:latest,codellama:latest,phi3:latest,llama2:latest,nomic-embed-text:latest
-      FRONTEND_URL: http://localhost:3000
+      FRONTEND_URL: http://localhost:3001
     ports:
       - "4000:4000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -75,7 +38,7 @@ services:
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:4000/api/v1
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - backend
     volumes:
@@ -84,6 +47,6 @@ services:
       - /app/.next
     command: npm run dev
 
-volumes:
-  postgres_data:
-  redis_data:
+networks:
+  default:
+    name: estack-network
