@@ -3,6 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product, Invoice, Quote, PurchaseOrder, Employee, Transaction, Account, InventoryMovement, Payroll } from '../../database/entities/erp.entity';
 
+export interface PaginatedResult<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
 @Injectable()
 export class ErpService {
   constructor(
@@ -26,46 +34,136 @@ export class ErpService {
     private payrollRepository: Repository<Payroll>,
   ) {}
 
+  private paginate<T>(data: T[], total: number, page: number, limit: number): PaginatedResult<T> {
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
   // Products
-  async getProducts() { return this.productRepository.find(); }
+  async getProducts(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.productRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
   async getProduct(id: string) { return this.productRepository.findOne({ where: { id } }); }
   async createProduct(data: Partial<Product>) { return this.productRepository.save(data); }
   async updateProduct(id: string, data: Partial<Product>) { await this.productRepository.update(id, data); return this.getProduct(id); }
   async deleteProduct(id: string) { return this.productRepository.delete(id); }
 
   // Invoices
-  async getInvoices() { return this.invoiceRepository.find(); }
+  async getInvoices(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.invoiceRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
   async getInvoice(id: string) { return this.invoiceRepository.findOne({ where: { id } }); }
   async createInvoice(data: Partial<Invoice>) { return this.invoiceRepository.save(data); }
   async updateInvoice(id: string, data: Partial<Invoice>) { await this.invoiceRepository.update(id, data); return this.getInvoice(id); }
+  async deleteInvoice(id: string) { return this.invoiceRepository.delete(id); }
 
   // Quotes
-  async getQuotes() { return this.quoteRepository.find(); }
+  async getQuotes(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.quoteRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
+  async getQuote(id: string) { return this.quoteRepository.findOne({ where: { id } }); }
   async createQuote(data: Partial<Quote>) { return this.quoteRepository.save(data); }
+  async updateQuote(id: string, data: Partial<Quote>) { await this.quoteRepository.update(id, data); return this.getQuote(id); }
+  async deleteQuote(id: string) { return this.quoteRepository.delete(id); }
 
   // Purchase Orders
-  async getPurchaseOrders() { return this.poRepository.find(); }
+  async getPurchaseOrders(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.poRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
+  async getPurchaseOrder(id: string) { return this.poRepository.findOne({ where: { id } }); }
   async createPurchaseOrder(data: Partial<PurchaseOrder>) { return this.poRepository.save(data); }
+  async updatePurchaseOrder(id: string, data: Partial<PurchaseOrder>) { await this.poRepository.update(id, data); return this.getPurchaseOrder(id); }
+  async deletePurchaseOrder(id: string) { return this.poRepository.delete(id); }
 
   // Employees
-  async getEmployees() { return this.employeeRepository.find(); }
+  async getEmployees(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.employeeRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
   async getEmployee(id: string) { return this.employeeRepository.findOne({ where: { id } }); }
   async createEmployee(data: Partial<Employee>) { return this.employeeRepository.save(data); }
   async updateEmployee(id: string, data: Partial<Employee>) { await this.employeeRepository.update(id, data); return this.getEmployee(id); }
+  async deleteEmployee(id: string) { return this.employeeRepository.delete(id); }
 
   // Accounting
-  async getAccounts() { return this.accountRepository.find(); }
+  async getAccounts(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.accountRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { accountNumber: 'ASC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
+  async getAccount(id: string) { return this.accountRepository.findOne({ where: { id } }); }
   async createAccount(data: Partial<Account>) { return this.accountRepository.save(data); }
-  async getTransactions() { return this.transactionRepository.find(); }
+  async updateAccount(id: string, data: Partial<Account>) { await this.accountRepository.update(id, data); return this.getAccount(id); }
+  async deleteAccount(id: string) { return this.accountRepository.delete(id); }
+
+  async getTransactions(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.transactionRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { date: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
+  async getTransaction(id: string) { return this.transactionRepository.findOne({ where: { id } }); }
   async createTransaction(data: Partial<Transaction>) { return this.transactionRepository.save(data); }
+  async deleteTransaction(id: string) { return this.transactionRepository.delete(id); }
 
   // Inventory
-  async getInventoryMovements() { return this.inventoryMovementRepository.find(); }
+  async getInventoryMovements(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.inventoryMovementRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
   async createInventoryMovement(data: Partial<InventoryMovement>) { return this.inventoryMovementRepository.save(data); }
 
   // Payroll
-  async getPayrolls() { return this.payrollRepository.find(); }
+  async getPayrolls(page: number = 1, limit: number = 10) {
+    const [data, total] = await this.payrollRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+    return this.paginate(data, total, page, limit);
+  }
+  async getPayroll(id: string) { return this.payrollRepository.findOne({ where: { id } }); }
   async createPayroll(data: Partial<Payroll>) { return this.payrollRepository.save(data); }
+  async updatePayroll(id: string, data: Partial<Payroll>) { await this.payrollRepository.update(id, data); return this.getPayroll(id); }
+  async deletePayroll(id: string) { return this.payrollRepository.delete(id); }
 
   // Dashboard Stats
   async getDashboardStats() {
