@@ -6,21 +6,21 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: estack-backend
+    container_name: electron-ai-os-backend
     environment:
       NODE_ENV: development
       PORT: 4000
       DATABASE_HOST: host.docker.internal
       DATABASE_PORT: 5432
-      DATABASE_NAME: estack_ai
+      DATABASE_NAME: electron_ai_os
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
       DATABASE_SYNCHRONIZE: "true"
-      JWT_SECRET: estack-ai-super-secret-jwt-key-2024
+      JWT_SECRET: electron-ai-os-super-secret-jwt-key-2024
       JWT_EXPIRES_IN: 7d
       OLLAMA_BASE_URL: http://host.docker.internal:11434
-      OLLAMA_DEFAULT_MODEL: mistral:latest
-      OLLAMA_MODELS: mistral:latest,codellama:latest,phi3:latest,llama2:latest,nomic-embed-text:latest
+      OLLAMA_DEFAULT_MODEL: llama3.2:latest
+      OLLAMA_MODELS: llama3.2:latest,llama3.1:8b,qwen2.5-coder:7b,phi3:mini,nomic-embed-text:latest
       FRONTEND_URL: http://localhost:3001
     ports:
       - "4000:4000"
@@ -34,7 +34,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: estack-frontend
+    container_name: electron-ai-os-frontend
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:4000/api/v1
     ports:
@@ -49,4 +49,4 @@ services:
 
 networks:
   default:
-    name: estack-network
+    name: electron-ai-os-network

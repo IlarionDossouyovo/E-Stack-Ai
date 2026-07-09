@@ -24,10 +24,10 @@ export default function Logo({ size = 'md', variant = 'default' }: LogoProps) {
       </div>
       <div className="flex flex-col">
         <span className={`${sizes[size].text} font-bold ${variant === 'white' ? 'text-white' : 'text-gray-900'}`}>
-          E-Stack
+          ELECTRON
         </span>
         <span className={`text-xs ${variant === 'white' ? 'text-white/70' : 'text-gray-500'}`}>
-          AI Business OS
+          AI OS
         </span>
       </div>
     </div>

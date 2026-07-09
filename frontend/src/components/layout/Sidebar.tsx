@@ -8,11 +8,25 @@ import {
   Bot, 
   Settings,
   X,
-  Crown
+  Crown,
+  Wallet,
+  UsersRound,
+  Truck,
+  Megaphone,
+  Brain,
+  Building2,
+  ShoppingCart,
+  BarChart3,
+  Shield,
+  Globe,
+  Cloud,
+  Palette,
+  Briefcase,
+  Zap
 } from 'lucide-react';
 import Logo from '../common/Logo';
 
-type Module = 'dashboard' | 'erp' | 'crm' | 'ai' | 'settings';
+type Module = 'dashboard' | 'founder' | 'erp' | 'crm' | 'finance' | 'hr' | 'marketing' | 'supplychain' | 'ai' | 'settings';
 
 interface SidebarProps {
   activeModule: Module;
@@ -23,9 +37,14 @@ interface SidebarProps {
 
 const modules = [
   { id: 'dashboard' as Module, name: 'Dashboard', icon: LayoutDashboard },
+  { id: 'founder' as Module, name: 'Founder Center', icon: Crown },
   { id: 'erp' as Module, name: 'ERP', icon: Package },
   { id: 'crm' as Module, name: 'CRM', icon: Users },
-  { id: 'ai' as Module, name: 'AI Assistant', icon: Bot },
+  { id: 'finance' as Module, name: 'Finance', icon: Wallet },
+  { id: 'hr' as Module, name: 'RH', icon: UsersRound },
+  { id: 'marketing' as Module, name: 'Marketing', icon: Megaphone },
+  { id: 'supplychain' as Module, name: 'Supply Chain', icon: Truck },
+  { id: 'ai' as Module, name: 'AI Assistant', icon: Brain },
   { id: 'settings' as Module, name: 'Settings', icon: Settings },
 ];
 
@@ -99,8 +118,8 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
 
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <div className="bg-indigo-800/50 rounded-lg p-4">
-            <p className="text-indigo-200 text-xs">Version 1.0</p>
-            <p className="text-white text-sm font-medium">Premium Enterprise</p>
+            <p className="text-indigo-200 text-xs">ELECTRON AI OS</p>
+            <p className="text-white text-sm font-medium">Enterprise Premium Ultimate 1.0</p>
           </div>
         </div>
       </aside>

@@ -1,7 +1,7 @@
 {
-  "name": "e-stack-ai",
+  "name": "electron-ai-os",
   "version": "1.0.0",
-  "description": "E-Stack AI - Electron AI Business OS - Plateforme Internationale d'Intelligence Artificielle pour la Gestion Intégrale des Entreprises",
+  "description": "ELECTRON AI OS - Enterprise Artificial Intelligence Operating System - One Intelligence. Infinite Business.",
   "private": true,
   "scripts": {
     "dev": "docker-compose up",
@@ -11,8 +11,8 @@
     "logs": "docker-compose logs -f",
     "setup": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
-  "keywords": ["ai", "business", "erp", "crm", "orchestrator", "enterprise", "multi-agent"],
-  "author": "E-Stack AI - Technologies ELECTRON",
+  "keywords": ["ai", "erp", "crm", "business", "enterprise", "aios", "ELECTRON", "multi-agent"],
+  "author": "ELECTRON Technologies",
   "license": "ISC",
   "engines": {
     "node": ">=18.0.0",

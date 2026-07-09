@@ -24,8 +24,8 @@ async function bootstrap() {
 
   // Swagger documentation
   const config = new DocumentBuilder()
-    .setTitle('E-Stack AI API')
-    .setDescription('Electron AI Business OS - API Documentation')
+    .setTitle('ELECTRON AI OS API')
+    .setDescription('Enterprise Artificial Intelligence Operating System - API Documentation')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -34,7 +34,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 4000;
   await app.listen(port);
-  console.log(`🚀 E-Stack AI Backend running on port ${port}`);
+  console.log(`🚀 ELECTRON AI OS Backend running on port ${port}`);
   console.log(`📚 API Documentation: http://localhost:${port}/api/docs`);
 }
 bootstrap();

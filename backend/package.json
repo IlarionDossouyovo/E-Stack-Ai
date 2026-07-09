@@ -1,7 +1,7 @@
 {
-  "name": "e-stack-ai-backend",
+  "name": "electron-ai-os-backend",
   "version": "1.0.0",
-  "description": "E-Stack AI - Electron AI Business OS Backend",
+  "description": "ELECTRON AI OS - Enterprise Artificial Intelligence Operating System Backend",
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,8 +10,8 @@
     "start:prod": "node dist/main.js",
     "typeorm": "typeorm"
   },
-  "keywords": ["ai", "business", "erp", "crm", "orchestrator"],
-  "author": "E-Stack AI",
+  "keywords": ["ai", "erp", "crm", "business", "enterprise", "aios", "ELECTRON"],
+  "author": "ELECTRON Technologies",
   "license": "ISC",
   "dependencies": {
     "@nestjs/common": "^11.1.27",

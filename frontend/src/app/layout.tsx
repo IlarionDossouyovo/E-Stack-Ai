@@ -6,9 +6,9 @@ import { AuthProvider } from "@/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "E-Stack AI - Electron AI Business OS",
-  description: "Plateforme Internationale d'Intelligence Artificielle pour la Gestion Intégrale des Entreprises",
-  keywords: ["AI", "ERP", "CRM", "Business", "Management", "Intelligence Artificielle", "Entreprise"],
+  title: "ELECTRON AI OS - Enterprise Artificial Intelligence Operating System",
+  description: "Système d'exploitation intelligent pour entreprises - One Intelligence. Infinite Business.",
+  keywords: ["AI", "ERP", "CRM", "Business", "Management", "Intelligence Artificielle", "Entreprise", "AIOS", "ELECTRON"],
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.ico",

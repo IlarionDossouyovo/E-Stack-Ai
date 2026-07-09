@@ -4,12 +4,17 @@ import { useState } from 'react';
 import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 import Dashboard from '@/components/dashboard/Dashboard';
+import FounderDashboard from '@/components/dashboard/FounderDashboard';
 import ErpModule from '@/components/modules/ErpModule';
 import CrmModule from '@/components/modules/CrmModule';
+import FinanceModule from '@/components/modules/FinanceModule';
+import HrModule from '@/components/modules/HrModule';
+import MarketingModule from '@/components/modules/MarketingModule';
+import SupplyChainModule from '@/components/modules/SupplyChainModule';
 import AiChat from '@/components/ai/AiChat';
 import Settings from '@/components/settings/Settings';
 
-type Module = 'dashboard' | 'erp' | 'crm' | 'ai' | 'settings';
+type Module = 'dashboard' | 'founder' | 'erp' | 'crm' | 'finance' | 'hr' | 'marketing' | 'supplychain' | 'ai' | 'settings';
 
 export default function Home() {
   const [activeModule, setActiveModule] = useState<Module>('dashboard');
@@ -19,10 +24,20 @@ export default function Home() {
     switch (activeModule) {
       case 'dashboard':
         return <Dashboard />;
+      case 'founder':
+        return <FounderDashboard />;
       case 'erp':
         return <ErpModule />;
       case 'crm':
         return <CrmModule />;
+      case 'finance':
+        return <FinanceModule />;
+      case 'hr':
+        return <HrModule />;
+      case 'marketing':
+        return <MarketingModule />;
+      case 'supplychain':
+        return <SupplyChainModule />;
       case 'ai':
         return <AiChat />;
       case 'settings':
