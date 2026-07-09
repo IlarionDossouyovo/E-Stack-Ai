@@ -51,8 +51,8 @@ services:
       JWT_SECRET: estack-ai-super-secret-jwt-key-2024
       JWT_EXPIRES_IN: 7d
       OLLAMA_BASE_URL: http://host.docker.internal:11434
-      OLLAMA_DEFAULT_MODEL: llama3.2:latest
-      OLLAMA_MODELS: llama3.2:latest,llama3.1:8b,qwen2.5-coder:7b,phi3:mini
+      OLLAMA_DEFAULT_MODEL: mistral:latest
+      OLLAMA_MODELS: mistral:latest,codellama:latest,phi3:latest,llama2:latest,nomic-embed-text:latest
       FRONTEND_URL: http://localhost:3000
     ports:
       - "4000:4000"
