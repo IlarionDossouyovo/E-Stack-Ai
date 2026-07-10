@@ -80,7 +80,7 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
           </button>
         </div>
 
-        <nav className="p-4 space-y-2">
+        <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-180px)]">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = activeModule === module.id;
@@ -116,11 +116,9 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
           </Link>
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="bg-indigo-800/50 rounded-lg p-4">
-            <p className="text-indigo-200 text-xs">ELECTRON AI OS</p>
-            <p className="text-white text-sm font-medium">Enterprise Premium Ultimate 1.0</p>
-          </div>
+        <div className="p-4 bg-indigo-800/50 rounded-lg mx-4 mb-4">
+          <p className="text-indigo-200 text-xs">ELECTRON AI OS</p>
+          <p className="text-white text-sm font-medium">Enterprise Premium Ultimate 1.0</p>
         </div>
       </aside>
     </>
