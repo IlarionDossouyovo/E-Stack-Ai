@@ -64,7 +64,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: sh -c "npm install && npm install -g typescript ts-node && npm run build && npm run start:dev"
+    command: sh -c "npm install && npm install typescript@5.3.3 --save-dev && npx tsc && npm run start:dev"
 
   # Frontend
   frontend:
