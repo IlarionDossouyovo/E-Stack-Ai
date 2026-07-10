@@ -33,7 +33,7 @@ services:
 
   # Backend API
   backend:
-    image: node:22-alpine
+    image: node:20-slim
     container_name: electron-ai-os-backend
     environment:
       NODE_ENV: development
@@ -68,7 +68,7 @@ services:
 
   # Frontend
   frontend:
-    image: node:22-alpine
+    image: node:20-slim
     container_name: electron-ai-os-frontend
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:4000/api/v1
