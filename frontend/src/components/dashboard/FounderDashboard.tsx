@@ -362,7 +362,7 @@ export default function FounderDashboard() {
           </div>
           <div className="flex items-center gap-3 p-2 bg-yellow-50 rounded-lg">
             <AlertTriangle className="w-4 h-4 text-yellow-600" />
-            <span className="text-gray-700">Alerte: Database Replica CPU > 85%</span>
+            <span className="text-gray-700">Alerte: Database Replica CPU {'>'} 85%</span>
             <span className="text-gray-400 ml-auto">Il y a 30 min</span>
           </div>
           <div className="flex items-center gap-3 p-2 bg-green-50 rounded-lg">
