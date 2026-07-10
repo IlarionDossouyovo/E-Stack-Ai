@@ -9,7 +9,7 @@ import {
   Bot, 
   CreditCard, 
   Shield, 
-  Devops,
+  Puzzle,
   Workflow,
   FileText,
   Store,
@@ -332,7 +332,7 @@ export default function FounderDashboard() {
               <span className="text-sm font-medium">Workflows</span>
             </button>
             <button className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <Devops className="w-8 h-8 text-red-600" />
+              <Puzzle className="w-8 h-8 text-red-600" />
               <span className="text-sm font-medium">DevOps</span>
             </button>
             <button className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
