@@ -4,7 +4,7 @@ services:
     image: postgres:16-alpine
     container_name: electron-ai-os-postgres
     environment:
-      POSTGRES_DB: electron_ai_os
+      POSTGRES_DB: estack_ai
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -35,12 +35,13 @@ services:
   backend:
     image: node:20-slim
     container_name: electron-ai-os-backend
+    restart: always
     environment:
       NODE_ENV: development
       PORT: 4000
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
-      DATABASE_NAME: electron_ai_os
+      DATABASE_NAME: estack_ai
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
       DATABASE_SYNCHRONIZE: "true"
@@ -70,15 +71,17 @@ services:
   frontend:
     image: node:20-slim
     container_name: electron-ai-os-frontend
+    restart: always
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:4000/api/v1
+      NEXT_PUBLIC_API_URL: http://backend:4000/api/v1
     ports:
       - "3000:3000"
     working_dir: /app
     volumes:
       - ./frontend:/app
     depends_on:
-      - backend
+      backend:
+        condition: service_started
     command: sh -c "npm install && npm run dev -- -H 0.0.0.0"
 
 volumes:
