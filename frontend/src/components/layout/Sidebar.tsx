@@ -63,7 +63,7 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
       <aside 
         className={`
           fixed top-0 left-0 z-50 h-full w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 
-          transform transition-transform duration-300 ease-in-out
+          transform transition-transform duration-300 ease-in-out flex flex-col
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:relative lg:translate-x-0
         `}
@@ -80,7 +80,7 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
           </button>
         </div>
 
-        <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-180px)]">
+        <nav className="p-4 space-y-2 overflow-y-auto flex-1">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = activeModule === module.id;
@@ -116,9 +116,8 @@ export default function Sidebar({ activeModule, setActiveModule, isOpen, setIsOp
           </Link>
         </nav>
 
-        <div className="p-4 bg-indigo-800/50 rounded-lg mx-4 mb-4">
-          <p className="text-indigo-200 text-xs">ELECTRON AI OS</p>
-          <p className="text-white text-sm font-medium">Enterprise Premium Ultimate 1.0</p>
+        <div className="p-4 border-t border-indigo-700 mt-auto">
+          <p className="text-indigo-200 text-xs text-center">ELECTRON AI OS</p>
         </div>
       </aside>
     </>
