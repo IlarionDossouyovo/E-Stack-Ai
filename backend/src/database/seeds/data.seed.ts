@@ -192,11 +192,11 @@ export async function seedDatabase(dataSource: DataSource): Promise<void> {
   console.log('🎫 Seeding tickets...');
   
   const tickets = [
-    { subject: 'Problème de connexion', description: 'Impossible de se connecter au dashboard', priority: 'high', status: 'open', category: 'technical' },
-    { subject: 'Demande de fonctionnalité', description: 'Ajouter un module d\'export PDF', priority: 'low', status: 'pending', category: 'feature' },
-    { subject: 'Bug sur les factures', description: 'Les totaux ne correspondent pas', priority: 'high', status: 'in_progress', category: 'bug' },
-    { subject: 'Question sur la facturation', description: 'Comment modifier une facture ?', priority: 'low', status: 'closed', category: 'question' },
-    { subject: 'Demande de formation', description: 'Formation sur le module CRM', priority: 'medium', status: 'pending', category: 'training' },
+    { ticketNumber: 'TKT-001', subject: 'Problème de connexion', description: 'Impossible de se connecter au dashboard', priority: 'high', status: 'open', category: 'technical' },
+    { ticketNumber: 'TKT-002', subject: 'Demande de fonctionnalité', description: 'Ajouter un module d\'export PDF', priority: 'low', status: 'pending', category: 'feature' },
+    { ticketNumber: 'TKT-003', subject: 'Bug sur les factures', description: 'Les totaux ne correspondent pas', priority: 'high', status: 'in_progress', category: 'bug' },
+    { ticketNumber: 'TKT-004', subject: 'Question sur la facturation', description: 'Comment modifier une facture ?', priority: 'low', status: 'closed', category: 'question' },
+    { ticketNumber: 'TKT-005', subject: 'Demande de formation', description: 'Formation sur le module CRM', priority: 'medium', status: 'pending', category: 'training' },
   ];
 
   for (const ticket of tickets) {
