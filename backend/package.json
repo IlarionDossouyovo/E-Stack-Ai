@@ -8,7 +8,9 @@
     "start": "node dist/main.js",
     "start:dev": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:prod": "node dist/main.js",
-    "typeorm": "typeorm"
+    "typeorm": "typeorm",
+    "seed": "ts-node -r tsconfig-paths/register src/database/seeds/data.seed.ts",
+    "db:reset": "npm run seed"
   },
   "keywords": ["ai", "erp", "crm", "business", "enterprise", "aios", "ELECTRON"],
   "author": "ELECTRON Technologies",
