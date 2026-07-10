@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Users, Plus, Search, Edit, Trash2, Eye, Phone, Mail, Building, DollarSign, Ticket, Megaphone, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
-import axios from 'axios';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+import api from '@/lib/api';
 
 interface Company {
   id: string;
@@ -90,27 +88,27 @@ export default function CrmModule() {
     try {
       switch (activeTab) {
         case 'contacts':
-          const contactsRes = await axios.get(`${API_URL}/crm/contacts?page=${currentPage}&limit=10`);
+          const contactsRes = await api.get(`/crm/contacts?page=${currentPage}&limit=10`);
           setContacts(contactsRes.data.data || contactsRes.data);
           setTotalItems(contactsRes.data.total || contactsRes.data.length || 0);
           break;
         case 'companies':
-          const companiesRes = await axios.get(`${API_URL}/crm/companies?page=${currentPage}&limit=10`);
+          const companiesRes = await api.get(`/crm/companies?page=${currentPage}&limit=10`);
           setCompanies(companiesRes.data.data || companiesRes.data);
           setTotalItems(companiesRes.data.total || companiesRes.data.length || 0);
           break;
         case 'deals':
-          const dealsRes = await axios.get(`${API_URL}/crm/deals?page=${currentPage}&limit=10`);
+          const dealsRes = await api.get(`/crm/deals?page=${currentPage}&limit=10`);
           setDeals(dealsRes.data.data || dealsRes.data);
           setTotalItems(dealsRes.data.total || dealsRes.data.length || 0);
           break;
         case 'tickets':
-          const ticketsRes = await axios.get(`${API_URL}/crm/tickets?page=${currentPage}&limit=10`);
+          const ticketsRes = await api.get(`/crm/tickets?page=${currentPage}&limit=10`);
           setTickets(ticketsRes.data.data || ticketsRes.data);
           setTotalItems(ticketsRes.data.total || ticketsRes.data.length || 0);
           break;
         case 'campaigns':
-          const campaignsRes = await axios.get(`${API_URL}/crm/campaigns?page=${currentPage}&limit=10`);
+          const campaignsRes = await api.get(`/crm/campaigns?page=${currentPage}&limit=10`);
           setCampaigns(campaignsRes.data.data || campaignsRes.data);
           setTotalItems(campaignsRes.data.total || campaignsRes.data.length || 0);
           break;
@@ -171,11 +169,11 @@ export default function CrmModule() {
     e.preventDefault();
     setLoading(true);
     try {
-      const endpoint = `${API_URL}/crm/${activeTab}`;
+      const endpoint = `/crm/${activeTab}`;
       if (editingItem?.id) {
-        await axios.patch(`${endpoint}/${editingItem.id}`, formData);
+        await api.patch(`${endpoint}/${editingItem.id}`, formData);
       } else {
-        await axios.post(endpoint, formData);
+        await api.post(endpoint, formData);
       }
       setShowModal(false);
       setEditingItem(null);
@@ -192,7 +190,7 @@ export default function CrmModule() {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) return;
     setLoading(true);
     try {
-      await axios.delete(`${API_URL}/crm/${activeTab}/${id}`);
+      await api.delete(`/crm/${activeTab}/${id}`);
       fetchData();
     } catch (error) {
       console.error('Failed to delete:', error);

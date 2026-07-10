@@ -1,4 +1,36 @@
 services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: electron-ai-os-postgres
+    environment:
+      POSTGRES_DB: electron_ai_os
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: electron-ai-os-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # Backend API
   backend:
     build:
@@ -8,7 +40,7 @@ services:
     environment:
       NODE_ENV: development
       PORT: 4000
-      DATABASE_HOST: host.docker.internal
+      DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE_NAME: electron_ai_os
       DATABASE_USER: postgres
@@ -20,11 +52,20 @@ services:
       OLLAMA_DEFAULT_MODEL: llama3.2:latest
       OLLAMA_MODELS: llama3.2:latest,llama3.1:8b,qwen2.5-coder:7b,phi3:mini,nomic-embed-text:latest
       FRONTEND_URL: http://localhost:3001
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "4000:4000"
     volumes:
       - ./backend:/app
       - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     command: npm run start:dev
 
   # Frontend
@@ -44,6 +85,10 @@ services:
       - /app/node_modules
       - /app/.next
     command: npm run dev
+
+volumes:
+  postgres_data:
+  redis_data:
 
 networks:
   default:

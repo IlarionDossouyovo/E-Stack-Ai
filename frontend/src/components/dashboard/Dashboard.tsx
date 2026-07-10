@@ -12,7 +12,7 @@ import {
   ArrowDownRight,
   Bot
 } from 'lucide-react';
-import axios from 'axios';
+import api from '@/lib/api';
 
 interface Stats {
   totalProducts: number;
@@ -49,9 +49,9 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const [erpRes, crmRes, aiRes] = await Promise.all([
-          axios.get('http://localhost:4000/api/v1/erp/dashboard'),
-          axios.get('http://localhost:4000/api/v1/crm/dashboard'),
-          axios.get('http://localhost:4000/api/v1/ai/status'),
+          api.get('/erp/dashboard'),
+          api.get('/crm/dashboard'),
+          api.get('/ai/status'),
         ]);
         setStats({
           ...erpRes.data,

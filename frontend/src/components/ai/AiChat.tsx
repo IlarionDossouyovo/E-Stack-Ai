@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Bot, Send, User, Loader2, Sparkles } from 'lucide-react';
-import axios from 'axios';
+import api from '@/lib/api';
 
 interface Message {
   id: string;
@@ -109,7 +109,7 @@ export default function AiChat() {
 
   const fetchAiStatus = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/ai/status');
+      const response = await api.get('/ai/status');
       setAiStatus(response.data.ollama);
     } catch (error) {
       console.error('Failed to fetch AI status:', error);
@@ -131,7 +131,7 @@ export default function AiChat() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`http://localhost:4000/api/v1/ai/agent/${selectedAgent}`, {
+      const response = await api.post(`/ai/agent/${selectedAgent}`, {
         message: input,
         context: {},
       });

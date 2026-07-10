@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Package, Plus, Search, Edit, Trash2, Eye, FileText, Users, DollarSign, Boxes, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
-import axios from 'axios';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+import api from '@/lib/api';
 
 interface Product {
   id: string;
@@ -112,29 +110,29 @@ export default function ErpModule() {
     try {
       switch (activeTab) {
         case 'products':
-          const productsRes = await axios.get(`${API_URL}/erp/products?page=${currentPage}&limit=10`);
+          const productsRes = await api.get(`/erp/products?page=${currentPage}&limit=10`);
           setProducts(productsRes.data.data || productsRes.data);
           setTotalItems(productsRes.data.total || productsRes.data.length || 0);
           break;
         case 'invoices':
-          const invoicesRes = await axios.get(`${API_URL}/erp/invoices?page=${currentPage}&limit=10`);
+          const invoicesRes = await api.get(`/erp/invoices?page=${currentPage}&limit=10`);
           setInvoices(invoicesRes.data.data || invoicesRes.data);
           setTotalItems(invoicesRes.data.total || invoicesRes.data.length || 0);
           break;
         case 'quotes':
-          const quotesRes = await axios.get(`${API_URL}/erp/quotes?page=${currentPage}&limit=10`);
+          const quotesRes = await api.get(`/erp/quotes?page=${currentPage}&limit=10`);
           setQuotes(quotesRes.data.data || quotesRes.data);
           setTotalItems(quotesRes.data.total || quotesRes.data.length || 0);
           break;
         case 'employees':
-          const employeesRes = await axios.get(`${API_URL}/erp/employees?page=${currentPage}&limit=10`);
+          const employeesRes = await api.get(`/erp/employees?page=${currentPage}&limit=10`);
           setEmployees(employeesRes.data.data || employeesRes.data);
           setTotalItems(employeesRes.data.total || employeesRes.data.length || 0);
           break;
         case 'accounting':
           const [accountsRes, transRes] = await Promise.all([
-            axios.get(`${API_URL}/erp/accounts?page=${currentPage}&limit=10`),
-            axios.get(`${API_URL}/erp/transactions?page=1&limit=10`)
+            api.get(`/erp/accounts?page=${currentPage}&limit=10`),
+            api.get(`/erp/transactions?page=1&limit=10`)
           ]);
           setAccounts(accountsRes.data.data || accountsRes.data);
           setTransactions(transRes.data.data || transRes.data);
@@ -203,11 +201,11 @@ export default function ErpModule() {
     e.preventDefault();
     setLoading(true);
     try {
-      const endpoint = `${API_URL}/erp/${activeTab}`;
+      const endpoint = `/erp/${activeTab}`;
       if (editingItem?.id) {
-        await axios.patch(`${endpoint}/${editingItem.id}`, formData);
+        await api.patch(`${endpoint}/${editingItem.id}`, formData);
       } else {
-        await axios.post(endpoint, formData);
+        await api.post(endpoint, formData);
       }
       setShowModal(false);
       setEditingItem(null);
@@ -225,7 +223,7 @@ export default function ErpModule() {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) return;
     setLoading(true);
     try {
-      await axios.delete(`${API_URL}/${activeTab}/${id}`);
+      await api.delete(`/${activeTab}/${id}`);
       fetchData();
     } catch (error) {
       console.error('Failed to delete:', error);

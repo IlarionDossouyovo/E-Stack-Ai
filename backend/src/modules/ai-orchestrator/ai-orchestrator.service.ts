@@ -24,8 +24,8 @@ export class AiOrchestratorService {
 
   constructor(private configService: ConfigService) {
     this.ollamaBaseUrl = this.configService.get('ollama.baseUrl') || 'http://localhost:11434';
-    // Use available models: codellama, mistral, phi3, llama2
-    this.defaultModel = this.configService.get('ollama.defaultModel') || 'mistral:latest';
+    // Available models: llama3.2:latest, llama3.1:8b, qwen2.5-coder:7b, phi3:mini, nomic-embed-text:latest
+    this.defaultModel = this.configService.get('ollama.defaultModel') || 'llama3.2:latest';
   }
 
   async checkOllamaConnection(): Promise<boolean> {
