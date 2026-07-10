@@ -10,8 +10,8 @@
     "start:dev": "node dist/main.js",
     "start:prod": "node dist/main.js",
     "typeorm": "typeorm",
-    "seed": "node dist/database/seeds/data.seed.js",
-    "db:reset": "npm run build && npm run seed"
+    "seed": "npm run build && node dist/database/seeds/data.seed.js",
+    "db:reset": "npm run seed"
   },
   "keywords": ["ai", "erp", "crm", "business", "enterprise", "aios", "ELECTRON"],
   "author": "ELECTRON Technologies",
