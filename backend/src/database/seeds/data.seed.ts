@@ -227,7 +227,7 @@ export async function seedDatabase(dataSource: DataSource): Promise<void> {
 
 // Run seeding if called directly
 if (require.main === module) {
-  import { AppDataSource } from '../app.module';
+  const { AppDataSource } = require('../app.module');
   
   AppDataSource.initialize()
     .then(async (dataSource) => {
