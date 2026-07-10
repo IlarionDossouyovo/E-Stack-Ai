@@ -5,12 +5,13 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "npx tsc",
+    "prestart:dev": "npx tsc",
     "start": "node dist/main.js",
-    "start:dev": "npx ts-node -r tsconfig-paths/register src/main.ts",
+    "start:dev": "node dist/main.js",
     "start:prod": "node dist/main.js",
     "typeorm": "typeorm",
-    "seed": "npx ts-node -r tsconfig-paths/register src/database/seeds/data.seed.ts",
-    "db:reset": "npm run seed"
+    "seed": "node dist/database/seeds/data.seed.js",
+    "db:reset": "npm run build && npm run seed"
   },
   "keywords": ["ai", "erp", "crm", "business", "enterprise", "aios", "ELECTRON"],
   "author": "ELECTRON Technologies",
