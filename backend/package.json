@@ -17,6 +17,7 @@
   "author": "ELECTRON Technologies",
   "license": "ISC",
   "dependencies": {
+    "@nestjs/cli": "^11.0.23",
     "@nestjs/common": "^11.1.27",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.1.27",
@@ -39,19 +40,18 @@
     "pg": "^8.22.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typeorm": "^1.0.0",
+    "typescript": "^6.0.3",
     "uuid": "^14.0.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^11.0.23",
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/multer": "^2.2.0",
     "@types/node": "^26.1.0",
     "@types/passport-jwt": "^4.0.1",
-    "@types/passport-local": "^1.0.38",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^6.0.3"
+    "@types/passport-local": "^1.0.38"
   }
 }
