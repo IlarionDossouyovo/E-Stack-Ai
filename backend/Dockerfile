@@ -11,8 +11,8 @@ RUN npm install --include=dev
 # Copy source code
 COPY . .
 
-# Build TypeScript using npx
-RUN npx tsc
+# Build TypeScript
+RUN npm run build
 
 # Expose port
 EXPOSE 4000
